@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
 import ErrorBoundary from '~/components/ErrorBoundary';
-import About from '~/pages/About';
+import Elections from '~/pages/Elections';
 import Error from '~/pages/Error';
 import Home from '~/pages/Home';
 import NotFound from '~/pages/NotFound';
@@ -24,7 +24,7 @@ function App() {
             <Router>
               <Routes>
                 <Route element={<Home />} errorElement={<Error />} path="/" />
-                <Route element={<About />} errorElement={<Error />} path="/about" />
+                <Route element={<Elections />} errorElement={<Error />} path="/elections" />
                 <Route element={<NotFound />} path="*" />
               </Routes>
             </Router>
