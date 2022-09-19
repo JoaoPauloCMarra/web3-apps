@@ -7,5 +7,7 @@ export default Theme;
 export const GlobalStyle = createGlobalStyle`
   html {
     font-size: 16px;
+    font-weight: 300;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 `;
