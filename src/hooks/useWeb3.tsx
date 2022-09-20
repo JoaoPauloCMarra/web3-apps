@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { useRecoilState } from 'recoil';
 import Web3 from 'web3';
+
+import { electionsState } from '~/store/electionsStore';
 
 import ElectionContract from '../../truffle-project/build/Election.json';
 import MainContract from '../../truffle-project/build/MainContract.json';
@@ -12,6 +15,7 @@ const web3: Web3 = new Web3(Web3.givenProvider || new Web3.providers.HttpProvide
 const mainContract = new web3.eth.Contract(MainContract.abi as AbiItem[], MAIN_CONTRACT_ADDRESS);
 
 const useWeb3 = () => {
+  const [elections, setElections] = useRecoilState(electionsState);
   const [account, setAccount] = useState<string | null>(null);
   const [voting, setVoting] = useState(false);
 
@@ -43,7 +47,7 @@ const useWeb3 = () => {
     };
   }, []);
 
-  const getAllElections = useCallback(async () => {
+  const refetchElections = useCallback(async () => {
     try {
       if (!account) return;
 
@@ -56,12 +60,13 @@ const useWeb3 = () => {
         electionDetails[i] = getElectionByID(String(i), String(account));
       }
 
-      return await Promise.all(electionDetails);
+      const result = await Promise.all(electionDetails);
+      setElections(result.sort((a, b) => Number(b.id) - Number(a.id)));
     } catch (error) {
       console.error(error);
       return [];
     }
-  }, [account, getElectionByID]);
+  }, [account, getElectionByID, setElections]);
 
   const createElection = useCallback(
     async (electionDetails: { name: string; description: string; candidates: string[] }) => {
@@ -69,11 +74,12 @@ const useWeb3 = () => {
         await mainContract.methods
           .createElection([electionDetails.name, electionDetails.description], electionDetails.candidates)
           .send({ from: account });
+        await refetchElections();
       } catch (error) {
         console.log(error);
       }
     },
-    [account],
+    [account, refetchElections],
   );
 
   const voteElection = useCallback(
@@ -83,13 +89,14 @@ const useWeb3 = () => {
         const address = String(await mainContract.methods.Elections(electionID).call());
         const contract = new web3.eth.Contract(ElectionContract.abi as AbiItem[], address);
         await contract.methods.vote(Number(candidateID)).send({ from: account });
+        await refetchElections();
       } catch (error) {
         console.log(error);
       } finally {
         setVoting(false);
       }
     },
-    [account],
+    [account, refetchElections],
   );
 
   useEffect(() => {
@@ -106,8 +113,9 @@ const useWeb3 = () => {
     web3,
     contract: mainContract,
     account,
+    elections,
     voting,
-    getAllElections,
+    refetchElections,
     createElection,
     voteElection,
   };

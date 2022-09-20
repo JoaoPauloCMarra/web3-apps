@@ -23,8 +23,11 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
+  appearance: none;
+  border: 1px solid #333;
   border-radius: 0.4rem;
   font-size: 1rem;
+  outline: none;
   padding: 0.5rem;
 `;
 

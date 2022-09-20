@@ -8,9 +8,10 @@ import { Actions, Candidates, CandidatesItem, Container, Content, Description, H
 interface Props {
   data: ElectionInfo;
   enableVotes?: boolean;
+  onVoteDone?: () => void;
 }
 
-const ElectionDetails: FC<Props> = ({ data, enableVotes }) => {
+const ElectionDetails: FC<Props> = ({ data, enableVotes, onVoteDone }) => {
   const { voting, voteElection } = useWeb3();
   const [selectedCandidate, setSelectedCandidate] = useState<CandidateInfo | null>(null);
 
@@ -18,9 +19,10 @@ const ElectionDetails: FC<Props> = ({ data, enableVotes }) => {
     async (electionID: number) => {
       if (!selectedCandidate) return;
       await voteElection(electionID, selectedCandidate.id);
-      setSelectedCandidate(undefined);
+      setSelectedCandidate(null);
+      if (onVoteDone) onVoteDone();
     },
-    [selectedCandidate, voteElection],
+    [selectedCandidate, voteElection, onVoteDone],
   );
 
   return (
@@ -36,7 +38,7 @@ const ElectionDetails: FC<Props> = ({ data, enableVotes }) => {
               <CandidatesItem
                 active={selectedCandidate?.id === candidate.id}
                 onClick={() => (enableVotes ? setSelectedCandidate(candidate) : () => null)}
-                selectable={enableVotes}
+                selectable={!data.hasVoted && enableVotes}
               >
                 <span>{candidate.name}</span>
                 <span>{candidate.voteCount} votes</span>
@@ -45,7 +47,7 @@ const ElectionDetails: FC<Props> = ({ data, enableVotes }) => {
           )}
         </Candidates>
         <Actions>
-          {enableVotes ? (
+          {!data.hasVoted && enableVotes ? (
             <>
               {!voting && (
                 <Button disabled={Number(selectedCandidate?.id) < 0} onClick={() => onVoteSubmit(data.id)}>
