@@ -16,8 +16,6 @@
     "generate-types": "rimraf ./types/truffle-contracts && typechain --target=truffle-v5 'truffle-project/build/*.json'"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.3.9",
-    "@tanstack/react-query-devtools": "^4.3.9",
     "@truffle/contract": "^4.6.1",
     "@truffle/hdwallet-provider": "^2.0.14",
     "dotenv": "^16.0.2",

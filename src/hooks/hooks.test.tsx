@@ -1,23 +1,12 @@
 import { FC, PropsWithChildren } from 'react';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { cleanup, renderHook, waitFor } from '@testing-library/react';
+import { cleanup, renderHook } from '@testing-library/react';
+import { RecoilRoot } from 'recoil';
 
-import { MOCK_USER_INFO } from './mocks';
-import useUserInfo from './useUserInfo';
+import useWeb3 from './useWeb3';
 
 const createWrapper = () => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
-
-  const Wrapper: FC<PropsWithChildren> = ({ children }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  const Wrapper: FC<PropsWithChildren> = ({ children }) => <RecoilRoot>{children}</RecoilRoot>;
 
   return Wrapper;
 };
@@ -25,13 +14,12 @@ const createWrapper = () => {
 describe('Hooks', () => {
   afterEach(cleanup);
 
-  it('useUserInfo works as expected', async () => {
-    const { result } = renderHook(() => useUserInfo(), {
+  it('useWeb3 works as expected', async () => {
+    const { result } = renderHook(() => useWeb3(), {
       wrapper: createWrapper(),
     });
 
-    await waitFor(() => expect(result.current.isSuccess).toBe(true));
-
-    expect(result.current.data).toEqual(MOCK_USER_INFO);
+    // await waitFor(() => expect(result).to.be(''));
+    expect(result.current.web3);
   });
 });
