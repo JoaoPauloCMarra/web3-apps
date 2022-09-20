@@ -11,16 +11,18 @@ declare type UserInfo = {
   email: string;
 };
 
+declare type CandidateInfo = {
+  id: number;
+  name: string;
+  voteCount: number;
+};
+
 declare type ElectionInfo = {
   address: string;
   id: number;
   name: string;
   description: string;
-  candidates: {
-    id: number;
-    name: string;
-    voteCount: number;
-  }[];
+  candidates: CandidateInfo[];
   hasVoted: boolean;
 };
 

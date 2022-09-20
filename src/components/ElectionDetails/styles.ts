@@ -1,19 +1,16 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  background: #f2f2f2;
-  border-radius: 0.4rem;
-  cursor: default;
-  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.2));
-  padding: 1rem;
-  user-select: none;
+  width: 100%;
 `;
 
 export const Header = styled.div`
   padding: 1rem;
 `;
 
-export const Content = styled.div``;
+export const Content = styled.div`
+  max-width: 100%;
+`;
 
 export const Footer = styled.div`
   padding: 1rem;
@@ -37,11 +34,12 @@ export const Candidates = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-  padding: 1rem;
+  max-width: 100%;
 `;
 
-export const CandidatesItem = styled.div`
+export const CandidatesItem = styled.div<{ selectable?: boolean; active?: boolean }>`
   align-items: center;
   background: #ddd;
   border: 1px solid #d2d2d2;
@@ -49,7 +47,7 @@ export const CandidatesItem = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 1rem;
+  margin: 1rem;
   padding: 1rem 2rem;
 
   span:first-child {
@@ -60,4 +58,26 @@ export const CandidatesItem = styled.div`
   span:last-child {
     font-size: 0.875rem;
   }
+
+  ${({ selectable, active }) =>
+    selectable &&
+    css`
+      ${active &&
+      css`
+        background: #333;
+        color: white;
+      `}
+      &:hover:not(:disabled) {
+        background: #333;
+        color: white;
+        cursor: pointer;
+      }
+      &:disabled {
+        cursor: not-allowed;
+      }
+    `}
+`;
+
+export const Actions = styled.div`
+  text-align: center;
 `;

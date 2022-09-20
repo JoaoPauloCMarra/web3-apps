@@ -38,7 +38,9 @@ const Elections: FC = () => {
     <Container>
       <Title>Voting Dapp</Title>
 
-      <Button onClick={() => setShowElectionForm(true)}>Create new Election</Button>
+      <Button disabled={showElectionForm} onClick={() => setShowElectionForm(true)}>
+        Create new Election
+      </Button>
 
       {showElectionForm ? <ElectionForm onClose={onFormClose} onSubmitDone={onFormClose} /> : null}
 

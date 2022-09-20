@@ -15,4 +15,12 @@ export const Container = styled.button<{ active?: boolean }>`
       background: #999;
       color: #333;
     `}
+
+  &:hover:not(:disabled) {
+    opacity: 0.7;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
 `;
