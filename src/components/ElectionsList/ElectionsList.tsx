@@ -46,7 +46,9 @@ const ElectionsList: FC = () => {
             <ElectionDetails data={election} />
             {!election.hasVoted && (
               <ElectionActions>
-                <Button onClick={() => setSelectedElection(election)}>Vote now</Button>
+                <Button onClick={() => setSelectedElection(election)} variant="secondary">
+                  Vote now
+                </Button>
               </ElectionActions>
             )}
           </ElectionContainer>

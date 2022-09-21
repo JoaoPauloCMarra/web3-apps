@@ -57,7 +57,7 @@ const ElectionForm: FC<Props> = ({ onSubmitDone, onClose }) => {
         <Button disabled={saving} onClick={onFormClose}>
           Close
         </Button>
-        <Button disabled={saving} type="submit">
+        <Button disabled={saving} type="submit" variant="secondary">
           Submit
         </Button>
       </FormFooter>

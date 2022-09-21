@@ -17,18 +17,26 @@ const Home: FC = () => {
   return (
     <Container>
       <Title>Home Page</Title>
-      <p>My connected account: {account}</p>
-      <p>current language: {language}</p>
-      <Button active={language === 'en'} onClick={() => setLanguage('en')}>
-        en
-      </Button>
-      <Button active={language === 'es'} onClick={() => setLanguage('es')}>
-        es
-      </Button>
-      <Button active={language === 'pt'} onClick={() => setLanguage('pt')}>
-        pt
-      </Button>
-      <Button onClick={() => navigate('/elections')}>Go to Elections DAPP</Button>
+      <div>
+        <p>My connected account: {account}</p>
+        <p>current language: {language}</p>
+      </div>
+      <br />
+      <div>
+        <Button active={language === 'en'} onClick={() => setLanguage('en')} variant="primary">
+          en
+        </Button>
+        <Button active={language === 'es'} onClick={() => setLanguage('es')} variant="primary">
+          es
+        </Button>
+        <Button active={language === 'pt'} onClick={() => setLanguage('pt')} variant="primary">
+          pt
+        </Button>
+      </div>
+      <br />
+      <div>
+        <Button onClick={() => navigate('/elections')}>Go to Elections DAPP</Button>
+      </div>
     </Container>
   );
 };

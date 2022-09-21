@@ -15,9 +15,9 @@ const Elections: FC = () => {
 
   return (
     <Container>
-      <Title>Voting Dapp</Title>
+      <Title>Election Dapp</Title>
 
-      <Button disabled={showElectionForm} onClick={() => setShowElectionForm(true)}>
+      <Button disabled={showElectionForm} onClick={() => setShowElectionForm(true)} variant="primary">
         Create new Election
       </Button>
 

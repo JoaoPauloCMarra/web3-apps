@@ -50,7 +50,11 @@ const ElectionDetails: FC<Props> = ({ data, enableVotes, onVoteDone }) => {
           {!data.hasVoted && enableVotes ? (
             <>
               {!voting && (
-                <Button disabled={Number(selectedCandidate?.id) < 0} onClick={() => onVoteSubmit(data.id)}>
+                <Button
+                  disabled={Number(selectedCandidate?.id) < 0}
+                  onClick={() => onVoteSubmit(data.id)}
+                  variant="secondary"
+                >
                   Submit Vote
                 </Button>
               )}
