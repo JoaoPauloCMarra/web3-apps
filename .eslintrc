@@ -2,28 +2,28 @@
   "env": {
     "browser": true,
     "commonjs": true,
-    "es6": true,
+    "es2022": true,
     "node": true,
     "jest": true
   },
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "react",
     "@typescript-eslint",
-    "jsx-a11y",
+    "react",
     "react-hooks",
     "import",
+    "jsx-a11y",
     "unused-imports",
     "better-styled-components",
     "prettier"
   ],
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:jsx-a11y/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:import/typescript",
+    "plugin:react/recommended",
     "plugin:react/jsx-runtime",
+    "plugin:import/typescript",
+    "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
     "prettier"
   ],
@@ -46,24 +46,25 @@
     "import/resolver": {
       "typescript": {
         "alwaysTryTypes": true,
-        "project": ["./tsconfig.json", "apps/*/tsconfig.json", "shared/*/tsconfig.json"]
+        "project": ["./tsconfig.json"]
       }
     }
   },
   "rules": {
     "default-case": "off",
+    "no-useless-constructor": "off",
+    "no-unused-expressions": "off",
     "no-dupe-class-members": "off",
+    "no-use-before-define": "off",
+    "no-unused-vars": "off",
+    "no-redeclare": "off",
     "no-undef": "off",
     "semi": "error",
 
     // TypeScript specific rules
     "@typescript-eslint/consistent-type-assertions": "warn",
-    "no-array-constructor": "off",
-    "@typescript-eslint/no-array-constructor": "warn",
-    "no-redeclare": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-redeclare": "warn",
-    "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": [
       "warn",
       {
@@ -73,7 +74,6 @@
         "typedefs": false
       }
     ],
-    "no-unused-expressions": "off",
     "@typescript-eslint/no-unused-expressions": [
       "error",
       {
@@ -82,7 +82,6 @@
         "allowTaggedTemplates": true
       }
     ],
-    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
@@ -90,7 +89,6 @@
         "ignoreRestSiblings": true
       }
     ],
-    "no-useless-constructor": "off",
     "@typescript-eslint/no-useless-constructor": "warn",
     "@typescript-eslint/ban-types": "error",
     "@typescript-eslint/no-var-requires": "off",
@@ -207,10 +205,6 @@
     // https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-
-    // NextJs specific rules
-    "@next/next/no-html-link-for-pages": "off",
-    "@next/next/no-img-element": "off",
 
     // styled-components specific rules
     "better-styled-components/sort-declarations-alphabetically": "error",
